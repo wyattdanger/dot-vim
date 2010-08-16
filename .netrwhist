@@ -1,8 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/Stephen'
-let g:netrw_dirhist_2='/Users/Stephen/Sites/nick'
-let g:netrw_dirhist_3='/Users/Stephen/Desktop/peepcode-vim-code'
-let g:netrw_dirhist_4='/Users/Stephen/mdk/mgit/mtzdb.com'
-let g:netrw_dirhist_5='/Users/Stephen/mdk/mgit/mtzdb.com/project'
-let g:netrw_dirhist_6='/Users/Stephen/mdk/mgit/mtzdb.com/mtzdb'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Users/Stephen/.vim'
+let g:netrw_dirhist_2='/Users/Stephen/mdk/mgit/utcart.com/utcart'
+let g:netrw_dirhist_3='/Users/Stephen/mdk/mgit/git-utcart.com'
+let g:netrw_dirhist_4='/Users/Stephen/Sites/swb'
