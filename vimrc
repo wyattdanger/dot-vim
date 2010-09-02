@@ -49,7 +49,7 @@ set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLo
 
 " Whitespace control. Expandtab uses spaces instead of tabs. 
 set ts=2 sts=2 sw=2 expandtab
-autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
+autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
 
 " Show invisibles
 set list
