@@ -55,7 +55,7 @@ autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
 set list
 
 " Or use vividchalk
-colorscheme molokai
+colorscheme ir_black
 
 " LEADER
 
