@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/stephenwyattbush/Dev/dsgnlblg'
-let g:netrw_dirhist_2='/Users/stephenwyattbush/Sites/designlab/wp-content/themes/spaceinvaders'
-let g:netrw_dirhist_3='/Applications/MAMP/htdocs/mailchimpapp'
-let g:netrw_dirhist_4='/Applications/MAMP/htdocs/mailchimp'
-let g:netrw_dirhist_5='/Users/stephenwyattbush/Sites/staticmc'
-let g:netrw_dirhist_6='/Users/stephenwyattbush/Dev/staticmc'
