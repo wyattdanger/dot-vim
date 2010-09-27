@@ -1,6 +1,3 @@
-" Example Vim configuration.
-" Copy or symlink to ~/.vimrc or ~/_vimrc.
-
 set nocompatible                  " Must come first because it changes other options.
 
 syntax enable                     " Turn on syntax highlighting.
@@ -17,6 +14,7 @@ set hidden                        " Handle multiple buffers better.
 
 set wildmenu                      " Enhanced command line completion.
 set wildmode=list:longest         " Complete files like a shell.
+set wildignore=*.swp,*.bak,*.pyc,*.class
 
 set ignorecase                    " Case-insensitive searching.
 set smartcase                     " But case-sensitive if expression contains a capital letter.
@@ -30,9 +28,12 @@ set hlsearch                      " Highlight matches.
 set wrap                          " Turn on line wrapping.
 set scrolloff=3                   " Show 3 lines of context around the cursor.
 
-set title                         " Set the terminal's title
+set history=1000                  " remember more commands and search history
+set undolevels=1000               " use many muchos levels of undo
+set title                         " change the terminal's title
+set visualbell                    " don't beep
+set noerrorbells                  " don't beep
 
-set visualbell                    " No beeping.
 
 set nobackup                      " Don't make a backup before overwriting a file.
 set nowritebackup                 " And again.
@@ -92,6 +93,10 @@ autocmd FileType haml setlocal foldmethod=syntax shiftwidth=2 tabstop=2
 " Custom Mappings
 nmap <leader>nt :NERDTree<cr>
 
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
 
@@ -101,8 +106,23 @@ nmap <D-]> >>
 vmap <D-[> <gv
 vmap <D-]> >gv
 
-" From vimcasts.org/episodes/tabs-and-spaces
-" Set tabstop, softtabstop and shiftwidth to the same value
+"gui options {{{ 
+
+if has('gui_running')
+    set columns=160                                                     "set width of window off open
+    set lines=50                                                        "height of window off open
+    set guitablabel=%t                                                  "tabs display file name
+
+    "kick it old school, no gui needed.
+    set guioptions-=T                                                   "kill toolbar
+    set guioptions-=m                                                   "kill menu
+    set guioptions-=r                                                   "kill right scrollbar
+    set guioptions-=l                                                   "kill left scrollbar
+    set guioptions-=L                                                   "kill left scrollbar with multiple buffers
+endif
+
+"}}}
+
 command! -nargs=* Stab call Stab()
 function! Stab()
   let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
