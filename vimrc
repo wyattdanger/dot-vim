@@ -156,3 +156,4 @@ if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 
+call pathogen#runtime_append_all_bundles()
