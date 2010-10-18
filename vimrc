@@ -45,8 +45,6 @@ set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
 "set expandtab                    " Use spaces instead of tabs
 
 set laststatus=2                  " Show the status line all the time
-" Useful status information at bottom of screen
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
 " Whitespace control. Expandtab uses spaces instead of tabs. 
 set ts=2 sts=2 sw=2 expandtab
@@ -151,9 +149,35 @@ function! SummarizeTabs()
 endfunction
 " 
 
+"Git branch
+function! GitBranch()
+    let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+    if branch != ''
+        return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
+    en
+    return ''
+endfunction
+
+function! CurDir()
+    return substitute(getcwd(), '/Users/amir/', "~/", "g")
+endfunction
+
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    en
+    return ''
+endfunction
+
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 
 call pathogen#runtime_append_all_bundles()
+
+" Useful status information at bottom of screen
+" set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
+" Format the statusline
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L%{GitBranch()}
+
