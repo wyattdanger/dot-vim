@@ -181,3 +181,7 @@ call pathogen#runtime_append_all_bundles()
 " Format the statusline
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L%{GitBranch()}
 
+" Map enter to escape
+inoremap <cr> <esc>
+nnoremap <cr> a<cr>
+
