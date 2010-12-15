@@ -90,6 +90,7 @@ autocmd FileType haml setlocal foldmethod=syntax shiftwidth=2 tabstop=2
 
 " Custom Mappings
 nmap <leader>nt :NERDTree<cr>
+nmap <leader>s  :w<cr>
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
