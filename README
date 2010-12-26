@@ -1,1 +1,3 @@
-Personal .vim config
+Personal .vim config.
+Symlink vimrc to ~/.vimrc to use.
+Optimized for MacVim. May cause weirdness when using vim in the terminal.
