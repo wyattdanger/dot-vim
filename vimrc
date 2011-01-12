@@ -1,188 +1,103 @@
-set nocompatible                  " Must come first because it changes other options.
+" http://vimdoc.sourceforge.net/htmldoc/starting.html#vimrc
 
-syntax enable                     " Turn on syntax highlighting.
-filetype plugin indent on         " Turn on file type detection.
+set nocompatible        " use vim defaults
+set scrolloff=3         " keep 3 lines when scrolling
+set ai                  " set auto-indenting on for programming
 
-runtime macros/matchit.vim        " Load the matchit plugin.
+set showcmd             " display incomplete commands
+set nobackup            " do not keep a backup file
+set number              " show line numbers
+set ruler               " show the current row and column
 
-set showcmd                       " Display incomplete commands.
-set showmode                      " Display the mode you're in.
+set hlsearch            " highlight searches
+set incsearch           " do incremental searching
+set showmatch           " jump to matches when entering regexp
+set ignorecase          " ignore case when searching
+set smartcase           " no ignorecase if Uppercase char present
 
-set backspace=indent,eol,start    " Intuitive backspacing.
+set visualbell t_vb=    " turn off error beep/flash
+set novisualbell        " turn off visual bell
 
-set hidden                        " Handle multiple buffers better.
+set tabstop=2           " how many columns a tab counts for
+set shiftwidth=2        " how many columns text is indented with the reindent operations
+set softtabstop=2       " how many columns vim uses when you hit Tab in insert mode
 
-set wildmenu                      " Enhanced command line completion.
-set wildmode=list:longest         " Complete files like a shell.
-set wildignore=*.swp,*.bak,*.pyc,*.class
+set backspace=indent,eol,start  " make that backspace key work the way it should
 
-set ignorecase                    " Case-insensitive searching.
-set smartcase                     " But case-sensitive if expression contains a capital letter.
+syntax on               " turn syntax highlighting on by default
+filetype on             " detect type of file
 
-set number                        " Show line numbers.
-set ruler                         " Show cursor position.
+set t_RV=               " http://bugs.debian.org/608242, http://groups.google.com/group/vim_dev/browse_thread/thread/9770ea844cec3282
 
-set incsearch                     " Highlight matches as you type.
-set hlsearch                      " Highlight matches.
+" Disable AutoComplPop. 
+let g:acp_enableAtStartup = 0 
+" Use neocomplcache. 
+let g:neocomplcache_enable_at_startup = 1 
+" Use smartcase. 
+let g:neocomplcache_enable_smart_case = 1 
+" Use camel case completion. 
+let g:neocomplcache_enable_camel_case_completion = 1 
+" Use underbar completion. 
+let g:neocomplcache_enable_underbar_completion = 1 
+" Set minimum syntax keyword length. 
+let g:neocomplcache_min_syntax_length = 3 
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*' 
 
-set wrap                          " Turn on line wrapping.
-set scrolloff=3                   " Show 3 lines of context around the cursor.
+" Define dictionary. 
+let g:neocomplcache_dictionary_filetype_lists = { 
+    \ 'default' : '', 
+    \ 'vimshell' : $HOME.'/.vimshell_hist', 
+    \ 'scheme' : $HOME.'/.gosh_completions' 
+    \ } 
 
-set history=1000                  " remember more commands and search history
-set undolevels=1000               " use many muchos levels of undo
-set title                         " change the terminal's title
-set visualbell                    " don't beep
-set noerrorbells                  " don't beep
+" Define keyword. 
+if !exists('g:neocomplcache_keyword_patterns') 
+    let g:neocomplcache_keyword_patterns = {} 
+endif 
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*' 
 
+" Plugin key-mappings. 
+imap <C-k>     <Plug>(neocomplcache_snippets_expand) 
+smap <C-k>     <Plug>(neocomplcache_snippets_expand) 
+inoremap <expr><C-g>     neocomplcache#undo_completion() 
+inoremap <expr><C-l>     neocomplcache#complete_common_string() 
 
-set nobackup                      " Don't make a backup before overwriting a file.
-set nowritebackup                 " And again.
-set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
+" SuperTab like snippets behavior. 
+"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
 
-" UNCOMMENT TO USE
-"set tabstop=2                    " Global tab width.
-"set shiftwidth=2                 " And again, related.
-"set expandtab                    " Use spaces instead of tabs
+" Recommended key-mappings. 
+" <CR>: close popup and save indent. 
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>" 
+" <TAB>: completion. 
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>" 
+" <C-h>, <BS>: close popup and delete backword char. 
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>" 
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>" 
+inoremap <expr><C-y>  neocomplcache#close_popup() 
+inoremap <expr><C-e>  neocomplcache#cancel_popup() 
 
-set laststatus=2                  " Show the status line all the time
+" AutoComplPop like behavior. 
+"let g:neocomplcache_enable_auto_select = 1 
 
-" Whitespace control. Expandtab uses spaces instead of tabs. 
-set ts=2 sts=2 sw=2 expandtab
-autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
+" Shell like behavior(not recommended). 
+"set completeopt+=longest 
+"let g:neocomplcache_enable_auto_select = 1 
+"let g:neocomplcache_disable_auto_complete = 1 
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>" 
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>" 
 
-" Show invisibles
-set list
+" Enable omni completion. 
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS 
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags 
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS 
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete 
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags 
 
-" Or use vividchalk
-colorscheme tidy
-
-" LEADER
-
-let mapleader = ","
-
-" Tab mappings.
-map <leader>tt :tabnew<cr>
-map <leader>te :tabedit
-map <leader>tc :tabclose<cr>
-map <leader>to :tabonly<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprevious<cr>
-map <leader>tf :tabfirst<cr>
-map <leader>tl :tablast<cr>
-map <leader>tm :tabmove
-
-let g:LustyExplorerSuppressRubyWarning = 1
-
-" Uncomment to use Jamis Buck's file opening plugin
-" map <Leader>t :FuzzyFinderTextMate<Enter>
-
-" Controversial...swap colon and semicolon for easier commands
-"nnoremap ; :
-"nnoremap : ;
-
-"vnoremap ; :
-"vnoremap : ;
-
-" Automatic fold settings for specific files. Uncomment to use.
-autocmd FileType ruby setlocal foldmethod=syntax shiftwidth=2 tabstop=2
-autocmd FileType css  setlocal shiftwidth=2 tabstop=2
-autocmd FileType haml setlocal foldmethod=syntax shiftwidth=2 tabstop=2
-
-" Custom Mappings
-nmap <leader>nt :NERDTree<cr>
-nmap <leader>s  :w<cr>
-
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-" Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:¬
-
-" Mimics TextMate's Indentation
-nmap <D-[> <<
-nmap <D-]> >>
-vmap <D-[> <gv
-vmap <D-]> >gv
-
-"gui options {{{ 
-
-if has('gui_running')
-    set columns=160                                                     "set width of window off open
-    set lines=50                                                        "height of window off open
-    set guitablabel=%t                                                  "tabs display file name
-
-    "kick it old school, no gui needed.
-    set guioptions-=T                                                   "kill toolbar
-    set guioptions-=m                                                   "kill menu
-    set guioptions-=r                                                   "kill right scrollbar
-    set guioptions-=l                                                   "kill left scrollbar
-    set guioptions-=L                                                   "kill left scrollbar with multiple buffers
-endif
-
-"}}}
-
-command! -nargs=* Stab call Stab()
-function! Stab()
-  let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
-  if l:tabstop > 0
-    let &l:sts = l:tabstop
-    let &l:ts = l:tabstop
-    let &l:sw = l:tabstop
-  endif
-  call SummarizeTabs()
-endfunction
- 
-function! SummarizeTabs()
-  try
-    echohl ModeMsg
-    echon 'tabstop='.&l:ts
-    echon ' shiftwidth='.&l:sw
-    echon ' softtabstop='.&l:sts
-    if &l:et
-      echon ' expandtab'
-    else
-      echon ' noexpandtab'
-    endif
-  finally
-    echohl None
-  endtry
-endfunction
-" 
-
-"Git branch
-function! GitBranch()
-    let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
-    if branch != ''
-        return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
-    en
-    return ''
-endfunction
-
-function! CurDir()
-    return substitute(getcwd(), '/Users/amir/', "~/", "g")
-endfunction
-
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    en
-    return ''
-endfunction
-
-" Source the vimrc file after saving it
-if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
-endif
-
-call pathogen#runtime_append_all_bundles()
-
-" Useful status information at bottom of screen
-" set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
-" Format the statusline
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L%{GitBranch()}
-
-" Map enter to escape
-inoremap <cr> <esc>
-nnoremap <cr> a<cr>
+" Enable heavy omni completion. 
+if !exists('g:neocomplcache_omni_patterns') 
+let g:neocomplcache_omni_patterns = {} 
+endif 
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::' 
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete 
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
