@@ -54,7 +54,8 @@ autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
 set list
 
 " Or use vividchalk
-colorscheme tidy
+set background=dark
+colorscheme solarized
 
 " LEADER
 
@@ -183,3 +184,4 @@ call pathogen#runtime_append_all_bundles()
 " Format the statusline
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L%{GitBranch()}
 
+au BufRead,BufNewFile *.css set ft=css syntax=css3
